@@ -90,6 +90,7 @@ namespace SistemaGerencia.Web.Controllers
 
                 if(dadosInvalidos)
                 {
+                    cliente.CarregaDadosCliente(cliente.Id);
                     return View("CadastroCliente", cliente);
                 }
 
