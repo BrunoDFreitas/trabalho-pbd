@@ -50,6 +50,7 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 pessoa_id INT  NOT NULL,
 endereco_id INT  NOT NULL,
 data_hora DATETIME NOT NULL,
+status CHAR(1) NOT NULL,
 FOREIGN KEY(pessoa_id) REFERENCES pessoa (id),
 FOREIGN KEY(endereco_id) REFERENCES endereco (id),
 UNIQUE INDEX solicitacao_orcamento_index(pessoa_id, endereco_id, data_hora));
