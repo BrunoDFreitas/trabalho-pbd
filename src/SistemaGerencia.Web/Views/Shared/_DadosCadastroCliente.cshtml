@@ -1,0 +1,40 @@
+﻿@model SistemaGerencia.Web.Models.ClienteViewModel
+
+<p>@ViewBag.Retorno</p>
+
+<form action="/Cliente/GravarCliente" method="post">
+    <input type="text" hidden value="@Model.Id" id="id" name="id" />
+    <div class="row">
+        <div class="col-md-2">
+            <label>CPF/CNPJ</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("cpfcnpj", Model.CPFCNPJ, (Model.Id != 0 ? new { @readonly = "readonly" } : null))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Nome</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("nome", Model.Nome)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Ramo</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("ramo", Model.Ramo)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-primary" value="@(Model.Id != 0 ? "Alterar" : "Gravar")" />
+        </div>
+        <div class="col-md-2">
+            @Html.ActionLink("Voltar", "Index", "Cliente", new { @class = "btn btn-default"})
+        </div>
+    </div>
+</form>
+

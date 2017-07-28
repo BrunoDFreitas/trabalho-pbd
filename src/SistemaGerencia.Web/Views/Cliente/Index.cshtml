@@ -8,9 +8,11 @@
 <div class="container">
     <h2>Clientes</h2>
     
+    <p>@ViewBag.Erro</p>
+
     <p> <a class="btn btn-default" href="/Cliente/CadastroCliente">Adicionar</a></p>
 
-    <table class="table table-bordered table-striped">
+    <table id="tableClientes" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>CPF/CNPJ</th>
@@ -28,13 +30,11 @@
                         <td>@c.CPFCNPJ</td>
                         <td>@c.Nome</td>
                         <td>@c.Ramo</td>
-                        <td>@Html.ActionLink("Editar", "CadastroCliente", "Cliente", new { id = c.Id }, null)</td>
+                        <td>@Html.ActionLink("Detalhes", "CadastroCliente", "Cliente", new { id = c.Id }, null)</td>
                     </tr>
                 }
             }
         </tbody>
     </table>
 </div>
-
-
 

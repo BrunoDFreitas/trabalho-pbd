@@ -1,0 +1,33 @@
+﻿@model List<SistemaGerencia.Web.Models.EnderecoViewModel>
+
+
+<table id="tableClientes" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>UF</th>
+            <th>Cidade</th>
+            <th>Bairro</th>
+            <th>Rua</th>
+            <th>Número</th>
+            <th>Complemento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var e in Model)
+            {
+                <tr>
+                    <td>@e.Descricao</td>
+                    <td>@e.UF</td>
+                    <td>@e.Cidade</td>
+                    <td>@e.Bairro</td>
+                    <td>@e.Rua</td>
+                    <td>@e.Numero</td>
+                    <td>@e.Complemento</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

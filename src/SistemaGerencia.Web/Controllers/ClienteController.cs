@@ -47,16 +47,7 @@ namespace SistemaGerencia.Web.Controllers
                 ClienteViewModel cliente = new ClienteViewModel();
                 if(id != 0)
                 {
-                    unit = new UnitOfWork();
-                    Cliente bdCliente = unit.Cliente.FindById(id);
-                    if(bdCliente != null)
-                    {
-                        cliente.Id = bdCliente.Id;
-                        cliente.CPFCNPJ = bdCliente.CPF_CNPJ;
-                        cliente.Nome = bdCliente.Nome;
-                        cliente.Ramo = bdCliente.Ramo;
-                    }
-
+                    cliente.CarregaDadosCliente(id);
                 }
 
                 return View(cliente);
@@ -77,23 +68,23 @@ namespace SistemaGerencia.Web.Controllers
             try
             {
                 bool dadosInvalidos = false;
-                ViewBag.Erro = "";
+                ViewBag.Retorno = "";
 
                 if (String.IsNullOrWhiteSpace(cliente.CPFCNPJ))
                 {
-                    ViewBag.Erro += "Informe o CPF/CNPJ do cliente.\n";
+                    ViewBag.Retorno += "Informe o CPF/CNPJ do cliente.\n";
                     dadosInvalidos = true;
                 }
 
                 if (String.IsNullOrWhiteSpace(cliente.Nome))
                 {
-                    ViewBag.Erro += "Informe o nome do cliente.\n";
+                    ViewBag.Retorno += "Informe o nome do cliente.\n";
                     dadosInvalidos = true;
                 }
 
                 if (String.IsNullOrWhiteSpace(cliente.Ramo))
                 {
-                    ViewBag.Erro += "Informe o ramo do cliente.\n";
+                    ViewBag.Retorno += "Informe o ramo do cliente.\n";
                     dadosInvalidos = true;
                 }
 
@@ -130,11 +121,118 @@ namespace SistemaGerencia.Web.Controllers
                 }
                 else
                 {
-                    unit.Cliente.Update(bdCliente);
+                    unit.Cliente.Update(bdCliente);                    
                 }
                 unit.Save();
 
-                return RedirectToAction("Index");
+                if (novoCliente)
+                {
+                    ViewBag.Retorno = "Cliente cadastrado com sucesso.";
+                }
+                else
+                {
+                    ViewBag.Retorno = "Cadastro do cliente atualizado com sucesso.";
+                }
+
+                cliente.CarregaDadosCliente(bdCliente.Id);
+
+                return View("CadastroCliente", cliente);
+            }
+            finally
+            {
+                if (unit != null)
+                    unit.Dispose();
+
+                unit = null;
+            }
+        }
+
+
+        public ActionResult GravarEndereco(EnderecoViewModel endereco)
+        {
+            UnitOfWork unit = null;
+            try
+            {
+                
+                if(endereco.IdPessoa <= 0)
+                {
+                    ViewBag.Retorno = "Erro ao cadastro novo endereço. Id do cliente não informado.";
+                    return View("Index");
+                }
+
+                unit = new UnitOfWork();
+                Cliente bdCliente = unit.Cliente.FindById(endereco.IdPessoa);
+                if(bdCliente == null)
+                {
+                    ViewBag.Retorno = "Erro ao cadastro novo endereço. Cliente não encontrado.";
+                    return View("Index");
+                }
+
+                ClienteViewModel cliente = new ClienteViewModel();
+
+                bool dadosInvalidos = false;
+                ViewBag.Retorno = "";
+
+                if (String.IsNullOrWhiteSpace(endereco.Descricao))
+                {
+                    ViewBag.Retorno += "Descrição do endereço não informado.";
+                    dadosInvalidos = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(endereco.UF))
+                {
+                    ViewBag.Retorno += "UF do endereço não informado.";
+                    dadosInvalidos = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(endereco.Cidade))
+                {
+                    ViewBag.Retorno += "Cidade do endereço não informado.";
+                    dadosInvalidos = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(endereco.Bairro))
+                {
+                    ViewBag.Retorno += "Bairro do endereço não informado.";
+                    dadosInvalidos = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(endereco.Rua))
+                {
+                    ViewBag.Retorno += "Rua do endereço não informado.";
+                    dadosInvalidos = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(endereco.Numero))
+                {
+                    ViewBag.Retorno += "Número do endereço não informado.";
+                    dadosInvalidos = true;
+                }
+
+                if(dadosInvalidos)
+                {
+                    return View("CadastroCliente", cliente.CarregaDadosCliente(endereco.IdPessoa));
+                }
+
+                Endereco bdEndereco = new Endereco()
+                {
+                    Pessoa_Id = endereco.IdPessoa,
+                    Descricao = endereco.Descricao,
+                    UF = endereco.UF,
+                    Cidade = endereco.Cidade,
+                    Bairro = endereco.Bairro,
+                    Rua = endereco.Rua,
+                    Numero = endereco.Numero,
+                    Complemento = endereco.Complemento
+                };
+
+                unit.Endereco.Insert(bdEndereco);
+                unit.Save();
+
+                ViewBag.Retorno = "Endereço gravado com sucesso.";
+
+                return View("CadastroCliente", cliente.CarregaDadosCliente(endereco.IdPessoa));
+
             }
             finally
             {

@@ -1,0 +1,63 @@
+﻿@model SistemaGerencia.Web.Models.EnderecoViewModel
+<p>@ViewBag.Erro</p>
+
+<form action="/Cliente/GravarEndereco" method="post">
+    <input type="text" hidden value="@Model.Id" id="idEndereco" name="idEndereco" />
+    <input type="text" hidden value="@Model.IdPessoa" id="idPessoa" name="idPessoa" />
+    <div class="row">
+        <div class="col-md-2">
+            <label>Descrição</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("descricao", Model.Descricao)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>UF</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("uf", Model.UF)
+        </div>
+        <div class="col-md-2">
+            <label>Cidade</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("cidade", Model.Cidade)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Bairro</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("bairro", Model.Bairro)
+        </div>
+        <div class="col-md-2">
+            <label>Rua</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("rua", Model.Rua)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Número</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("numero", Model.Numero)
+        </div>
+        <div class="col-md-2">
+            <label>Complemento</label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("complemento", Model.Complemento)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-primary" value="Adicionar" />
+        </div>
+    </div>
+</form>
+
