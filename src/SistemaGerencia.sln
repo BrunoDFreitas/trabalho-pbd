@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGerencia.Web", "SistemaGerencia.Web\SistemaGerencia.Web.csproj", "{A1FCFA38-8B09-48C4-91DD-E78943CDAC09}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4699E2A6-7316-4817-9A03-2C55B18496FE} = {4699E2A6-7316-4817-9A03-2C55B18496FE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGerencia.BaseModel", "SistemaGerencia.BaseModel\SistemaGerencia.BaseModel.csproj", "{4699E2A6-7316-4817-9A03-2C55B18496FE}"
 EndProject

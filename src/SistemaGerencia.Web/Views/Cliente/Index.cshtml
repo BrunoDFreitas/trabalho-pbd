@@ -1,0 +1,38 @@
+﻿@model List<SistemaGerencia.Web.Models.ClienteViewModel>  
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container">
+    <h2>Clientes</h2>
+    
+    <p> <a class="btn btn-default" href="../Cliente/CadastroCliente">Adicionar</a></p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>CPF/CNPJ</th>
+                <th>Nome</th>
+                <th>Ramo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null && Model.Count > 0)
+            {
+                foreach(var c in Model)
+                {
+                    <tr>
+                        <td>@c.CPFCNPJ</td>
+                        <td>@c.Nome</td>
+                        <td>@c.Ramo</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

@@ -1,0 +1,28 @@
+﻿@model SistemaGerencia.Web.Models.ClienteViewModel
+@{
+    ViewBag.Title = "CadastroCliente";
+}
+
+<div class="container">
+    <h2>Cadastro de Cliente</h2>
+
+    <form action="../Cliente/GravarCliente" method="post">
+        <div class="row">
+            <label>CPF/CNPJ</label>
+            @Html.TextArea("cpfcnpj", Model.CPFCNPJ)
+        </div>
+        <div class="row">
+            <label>Nome</label>
+            @Html.TextArea("nome", Model.Nome)
+        </div>
+        <div class="row">
+            <label>Ramo</label>
+            @Html.TextArea("ramo", Model.Ramo)
+        </div>
+        <div class="row">
+            <input type="submit" class="btn btn-primary" value="Gravar" />
+        </div>
+    </form>
+</div>
+
+
