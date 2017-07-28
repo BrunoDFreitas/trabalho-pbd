@@ -32,6 +32,11 @@ namespace SistemaGerencia.BaseModel.Unit
 
         }
 
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
         public void Dispose()
         {
             if (context != null)

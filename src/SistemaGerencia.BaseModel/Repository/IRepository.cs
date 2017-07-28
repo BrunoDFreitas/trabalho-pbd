@@ -12,8 +12,10 @@ namespace SistemaGerencia.BaseModel.Repository
 
         TEntity FindById(int id);
 
-        void Insert(TEntity t);
+        void Insert(TEntity entity);
 
-        void Delete(TEntity t);
+        void Delete(TEntity entity);
+
+        void Update(TEntity entity);
     }
 }

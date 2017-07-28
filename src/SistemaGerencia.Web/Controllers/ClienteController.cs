@@ -47,6 +47,7 @@ namespace SistemaGerencia.Web.Controllers
                 ClienteViewModel cliente = new ClienteViewModel();
                 if(id != 0)
                 {
+                    unit = new UnitOfWork();
                     Cliente bdCliente = unit.Cliente.FindById(id);
                     if(bdCliente != null)
                     {
@@ -66,6 +67,80 @@ namespace SistemaGerencia.Web.Controllers
                 {
                     unit.Dispose();
                 }
+                unit = null;
+            }
+        }
+
+        public ActionResult GravarCliente(ClienteViewModel cliente)
+        {
+            UnitOfWork unit = null;
+            try
+            {
+                bool dadosInvalidos = false;
+                ViewBag.Erro = "";
+
+                if (String.IsNullOrWhiteSpace(cliente.CPFCNPJ))
+                {
+                    ViewBag.Erro += "Informe o CPF/CNPJ do cliente.\n";
+                    dadosInvalidos = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(cliente.Nome))
+                {
+                    ViewBag.Erro += "Informe o nome do cliente.\n";
+                    dadosInvalidos = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(cliente.Ramo))
+                {
+                    ViewBag.Erro += "Informe o ramo do cliente.\n";
+                    dadosInvalidos = true;
+                }
+
+                if(dadosInvalidos)
+                {
+                    return View("CadastroCliente", cliente);
+                }
+
+                unit = new UnitOfWork();
+                Cliente bdCliente = null;
+
+                bool novoCliente = false;
+                if (cliente.Id != 0)
+                {
+                    bdCliente = unit.Cliente.FindById(cliente.Id);
+                }
+
+                if(bdCliente == null)
+                {
+                    bdCliente = new Cliente();
+                    novoCliente = true;
+                }
+
+                
+
+                bdCliente.CPF_CNPJ = String.IsNullOrWhiteSpace(bdCliente.CPF_CNPJ) ? cliente.CPFCNPJ : bdCliente.CPF_CNPJ;
+                bdCliente.Nome = cliente.Nome;
+                bdCliente.Ramo = cliente.Ramo;
+                bdCliente.Fisico_Juridico = bdCliente.CPF_CNPJ.Trim().Length > 11 ? "J" : "F";
+
+                if (novoCliente)
+                {
+                    unit.Cliente.Insert(bdCliente);
+                }
+                else
+                {
+                    unit.Cliente.Update(bdCliente);
+                }
+                unit.Save();
+
+                return RedirectToAction("Index");
+            }
+            finally
+            {
+                if (unit != null)
+                    unit.Dispose();
+
                 unit = null;
             }
         }

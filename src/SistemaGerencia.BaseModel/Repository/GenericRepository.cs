@@ -12,11 +12,13 @@ namespace SistemaGerencia.BaseModel.Repository
         where TEntity : class
     {
         internal DbSet<TEntity> dbSet;
+        internal DbContext context;
 
 
         public GenericRepository(UnitOfWork unit)
         {
             dbSet = unit.Context.Set<TEntity>();
+            context = unit.Context;
         }
 
         public virtual IQueryable<TEntity> All()
@@ -24,9 +26,9 @@ namespace SistemaGerencia.BaseModel.Repository
             return dbSet.AsQueryable<TEntity>();
         }
 
-        public virtual void Delete(TEntity t)
+        public virtual void Delete(TEntity entity)
         {
-            dbSet.Remove(t);
+            dbSet.Remove(entity);
         }
 
         public virtual TEntity FindById(int id)
@@ -34,9 +36,14 @@ namespace SistemaGerencia.BaseModel.Repository
             return dbSet.Find(id);
         }
 
-        public virtual void Insert(TEntity t)
+        public virtual void Insert(TEntity entity)
         {
-            dbSet.Add(t);
+            dbSet.Add(entity);
+        }        
+
+        public virtual void Update(TEntity entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

@@ -6,18 +6,33 @@
 <div class="container">
     <h2>Cadastro de Cliente</h2>
 
-    <form action="../Cliente/GravarCliente" method="post">
+    <p>@ViewBag.Erro</p>
+
+    <form action="/Cliente/GravarCliente" method="post">
+        <input type="text" hidden value="@Model.Id" id="id" name="id"/>
         <div class="row">
-            <label>CPF/CNPJ</label>
-            @Html.TextArea("cpfcnpj", Model.CPFCNPJ)
+            <div class="col-md-1">
+                <label>CPF/CNPJ</label>
+            </div>
+            <div class="col-md-1">
+                @Html.TextBox("cpfcnpj", Model.CPFCNPJ)
+            </div>
         </div>
         <div class="row">
-            <label>Nome</label>
-            @Html.TextArea("nome", Model.Nome)
+            <div class="col-md-1">
+                <label>Nome</label>
+            </div>
+            <div class="col-md-1">
+                @Html.TextBox("nome", Model.Nome)
+            </div>
         </div>
         <div class="row">
-            <label>Ramo</label>
-            @Html.TextArea("ramo", Model.Ramo)
+            <div class="col-md-1">
+                <label>Ramo</label>
+            </div>
+            <div class="col-md-1">
+                @Html.TextBox("ramo", Model.Ramo)
+            </div>
         </div>
         <div class="row">
             <input type="submit" class="btn btn-primary" value="Gravar" />
