@@ -45,6 +45,7 @@ namespace SistemaGerencia.Web.Models
                               Descricao = e.Descricao
                           }).ToList();
                     }
+                    return true;
                 }
 
                 return false;

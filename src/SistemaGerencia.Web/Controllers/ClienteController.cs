@@ -211,7 +211,8 @@ namespace SistemaGerencia.Web.Controllers
 
                 if(dadosInvalidos)
                 {
-                    return View("CadastroCliente", cliente.CarregaDadosCliente(endereco.IdPessoa));
+                    cliente.CarregaDadosCliente(endereco.IdPessoa);
+                    return View("CadastroCliente", cliente);
                 }
 
                 Endereco bdEndereco = new Endereco()
@@ -231,7 +232,8 @@ namespace SistemaGerencia.Web.Controllers
 
                 ViewBag.Retorno = "Endereço gravado com sucesso.";
 
-                return View("CadastroCliente", cliente.CarregaDadosCliente(endereco.IdPessoa));
+                cliente.CarregaDadosCliente(endereco.IdPessoa);
+                return View("CadastroCliente", cliente);
 
             }
             finally
