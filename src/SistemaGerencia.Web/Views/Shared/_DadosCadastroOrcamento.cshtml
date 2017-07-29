@@ -6,8 +6,17 @@
 }
 
 @{
-    object htmlAttr = new { @class = "form-control" };
-    
+
+    object htmlAttr;
+    if(Model.Novo)
+    {
+        htmlAttr = new { @class = "form-control" };
+    }
+    else
+    {
+        htmlAttr = new { @class = "form-control", @readonly = "readonly" };
+    }
+
     <input type="text" hidden value="@Model.IdSolicitacao" id="idSolicitacao" name="idSolicitacao" />
     <input type="text" hidden value="@Model.Id" id="id" name="id" />
 
@@ -16,10 +25,19 @@
     {
         <div class="row">
             <div class="col-md-2">
-                <label>Descrição</label>
+                <label>Data/Hora Emissão</label>
             </div>
             <div class="col-md-3">
                 @Html.TextBox("DataHoraEmissao", Model.DataHoraEmissao, htmlAttr)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <label>Status</label>
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("Status", new SelectList(SistemaGerencia.Web.Models.Constantes.StatusOrcamento, "key", "value", Model.Status), new { @class = "form-control" })
             </div>
         </div>
     }
@@ -31,6 +49,9 @@
         <div class="col-md-3">
             @Html.TextBox("ValorTotal", Model.ValorTotal, htmlAttr)
         </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-2">
             <label>Tempo Estimado</label>
         </div>
@@ -43,8 +64,15 @@
         <div class="col-md-2">
             <label>Garantia</label>
         </div>
-        <div class="col-md-3">            
-            @Html.DropDownList("Garantia", new SelectList(SistemaGerencia.Web.Models.Constantes.OpcoesSimNao, Model.Garantia != null ? Model.Garantia : "S"), htmlAttr)            
+        <div class="col-md-3">          
+            @if (Model.Novo)
+            {
+                @Html.DropDownList("Garantia", new SelectList(SistemaGerencia.Web.Models.Constantes.OpcoesSimNao, "key", "value", Model.Garantia != null ? Model.Garantia : "S"), htmlAttr)
+            }
+            else
+            {
+                @Html.TextBox("Garantia", SistemaGerencia.Web.Models.Constantes.OpcoesSimNao[Model.Garantia], htmlAttr)
+            }
         </div>
     </div>
 

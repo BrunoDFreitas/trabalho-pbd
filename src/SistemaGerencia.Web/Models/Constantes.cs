@@ -7,7 +7,18 @@ namespace SistemaGerencia.Web.Models
 {
     public static class Constantes
     {
-        public static List<string> OpcoesSimNao = new List<string>() { "S", "N" };
+        public static Dictionary<string, string> OpcoesSimNao = new Dictionary<string, string>()
+        {
+            { "S", "Sim" },
+            { "N", "Não" }
+        };
+
+        public static Dictionary<string, string> StatusOrcamento = new Dictionary<string, string>()
+        {
+            { "P", "Pendente de Aprovação" },
+            { "A", "Aprovado" },
+            { "R", "Reprovado" }
+        };
 
         //public static List<string> Opcoes
     }

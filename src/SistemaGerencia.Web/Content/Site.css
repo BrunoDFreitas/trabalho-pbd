@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.form-control {
+    margin-bottom: 3px;
+}
+
+textarea.form-control {
+    min-height: 100px;
+}

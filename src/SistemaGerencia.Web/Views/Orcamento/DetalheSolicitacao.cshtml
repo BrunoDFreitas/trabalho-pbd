@@ -25,12 +25,19 @@
     </div>
 
     <h3>Local</h3>
-    @Html.Partial("_DadosCadastroEndereco", Model.Endereco)
+        @Html.Partial("_DadosCadastroEndereco", Model.Endereco)
 
+    <div class="row">
+        <div class="col-md-2">
+            @Html.ActionLink("Novo Orçamento", "AdicionarOrcamento", new { @idSolicitacao = Model.IdSolicitacao }, new { @class = "btn btn-primary" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.ActionLink("Voltar", "SolicitacoesCliente", new { @id = Model.IdPessoa }, new { @class = "btn btn-default" })
+        </div>
+    </div>
 
     <h3>Orçamentos Emitidos</h3>
-    <p>@Html.ActionLink("Novo Orçamento", "AdicionarOrcamento", new { @idSolicitacao = Model.IdSolicitacao }, new { @class = "btn btn-primary" }) </p>
-
 
     <table class="table table-bordered table-striped">
         <thead>
@@ -52,8 +59,8 @@
                         <td>@o.DataHoraEmissao</td>
                         <td>@o.TempoEstimado</td>
                         <td>@o.ValorTotal</td>
-                        <td>@o.Garantia</td>
-                        <td>@o.Status</td>
+                        <td>@SistemaGerencia.Web.Models.Constantes.OpcoesSimNao[o.Garantia]</td>
+                        <td>@SistemaGerencia.Web.Models.Constantes.StatusOrcamento[o.Status]</td>
                         <td>@Html.ActionLink("Detalhe", "DetalheOrcamento", new { @idOrcamento = o.Id })</td>
                     </tr>
                 }

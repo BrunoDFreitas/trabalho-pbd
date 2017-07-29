@@ -10,7 +10,17 @@
     
     <p>@ViewBag.Erro</p>
 
-    <p>@Html.ActionLink("Adicionar", "CadastroCliente", "Cliente", null, new { @class = "btn btn-primary" })</p>
+    <p>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.ActionLink("Adicionar Cliente", "CadastroCliente", "Cliente", null, new { @class = "btn btn-primary" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.ActionLink("Voltar", "Index", "Home", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </p>
 
     <table id="tableClientes" class="table table-bordered table-striped">
         <thead>

@@ -6,8 +6,19 @@
 <div class="container">
     <h2>Solicitações do Cliente @Model.NomeCliente</h2>
 
-    <p>@Html.ActionLink("Adicionar Solicitação", "CadastroSolicitacao", "Orcamento", new { @id = Model.IdPessoa }, new { @class = "btn btn-primary" } )</p>
     
+    <p>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.ActionLink("Adicionar Solicitação", "CadastroSolicitacao", "Orcamento", new { @id = Model.IdPessoa }, new { @class = "btn btn-primary" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.ActionLink("Voltar", "Index", "Cliente", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </p>
+
     <table id="tableClientes" class="table table-bordered table-striped">
         <thead>
             <tr>
