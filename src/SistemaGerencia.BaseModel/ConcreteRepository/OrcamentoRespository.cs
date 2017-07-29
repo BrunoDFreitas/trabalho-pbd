@@ -17,7 +17,14 @@ namespace SistemaGerencia.BaseModel.ConcreteRepository
 
         public IQueryable<Orcamento> ConsultaPorIdSolicitacao(int idSolicitacao)
         {
-            return dbSet.Where(s => s.Solicitacao_Orcamento_Id == idSolicitacao);
+            return dbSet.Where(o => o.Solicitacao_Orcamento_Id == idSolicitacao);
+        }
+
+        public Orcamento ConsultaUltimoEnviado(int idSolicitacao)
+        {
+            return dbSet.Where(o => o.Solicitacao_Orcamento_Id == idSolicitacao)
+                .OrderByDescending(o => o.Data_Hora_Emissao)
+                .FirstOrDefault();
         }
     }
 }

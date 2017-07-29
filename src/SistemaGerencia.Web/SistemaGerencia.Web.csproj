@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Models\CadastroSolicitacaoOrcamentoViewModel.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
+    <Compile Include="Models\Constantes.cs" />
     <Compile Include="Models\EnderecoViewModel.cs" />
     <Compile Include="Models\GravarSolicitacaoViewModel.cs" />
     <Compile Include="Models\ListagemOrcamentoViewModel.cs" />
@@ -211,10 +212,12 @@
     <Content Include="Views\Cliente\CadastroCliente.cshtml" />
     <Content Include="Views\Shared\_DadosCadastroCliente.cshtml" />
     <Content Include="Views\Shared\_ListaEnderecoCliente.cshtml" />
-    <Content Include="Views\Shared\_DadosCadastroEndereco.cshtml" />
     <Content Include="Views\Orcamento\SolicitacoesCliente.cshtml" />
     <Content Include="Views\Orcamento\CadastroSolicitacao.cshtml" />
     <Content Include="Views\Orcamento\DetalheSolicitacao.cshtml" />
+    <Content Include="Views\Shared\_DadosCadastroOrcamento.cshtml" />
+    <Content Include="Views\Orcamento\DetalheOrcamento.cshtml" />
+    <Content Include="Views\Shared\_DadosCadastroEndereco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

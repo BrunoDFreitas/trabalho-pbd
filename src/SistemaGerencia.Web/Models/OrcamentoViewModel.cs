@@ -17,10 +17,11 @@ namespace SistemaGerencia.Web.Models
         public string Status { get; set; }
         public string FormaPagamento { get; set; }
         public string Observacao { get; set; }
+        public bool Novo { get; set; }
 
         public OrcamentoViewModel()
         {
-
+            Novo = false;
         }
 
 

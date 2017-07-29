@@ -1,0 +1,68 @@
+﻿@model SistemaGerencia.Web.Models.OrcamentoViewModel
+
+
+@{
+    ViewBag.Title = "_DadosCadastroOrcamento";
+}
+
+@{
+    object htmlAttr = new { @class = "form-control" };
+    
+    <input type="text" hidden value="@Model.IdSolicitacao" id="idSolicitacao" name="idSolicitacao" />
+    <input type="text" hidden value="@Model.Id" id="id" name="id" />
+
+
+    if (!Model.Novo)
+    {
+        <div class="row">
+            <div class="col-md-2">
+                <label>Descrição</label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBox("DataHoraEmissao", Model.DataHoraEmissao, htmlAttr)
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Valor Total</label>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("ValorTotal", Model.ValorTotal, htmlAttr)
+        </div>
+        <div class="col-md-2">
+            <label>Tempo Estimado</label>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("TempoEstimado", Model.TempoEstimado, htmlAttr)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Garantia</label>
+        </div>
+        <div class="col-md-3">            
+            @Html.DropDownList("Garantia", new SelectList(SistemaGerencia.Web.Models.Constantes.OpcoesSimNao, Model.Garantia != null ? Model.Garantia : "S"), htmlAttr)            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Forma Pagamento</label>
+        </div>
+        <div class="col-md-3">
+            @Html.TextArea("FormaPagamento", Model.FormaPagamento, htmlAttr)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Observações</label>
+        </div>
+        <div class="col-md-3">
+            @Html.TextArea("Observacao", Model.Observacao, htmlAttr)
+        </div>
+    </div>
+}

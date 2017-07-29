@@ -283,5 +283,63 @@ namespace SistemaGerencia.Web.Controllers
                 unit = null;
             }
         }
+
+        
+        [HttpGet]
+        public ActionResult AdicionarOrcamento(int idSolicitacao)
+        {
+            UnitOfWork unit = null;
+            try
+            {
+                unit = new UnitOfWork();
+
+                SolicitacaoOrcamento bdSolicitacao = unit.SolicitacaoOrcamento.FindById(idSolicitacao);
+                if (bdSolicitacao == null)
+                {
+                    ViewBag.Retorno = "Solicitação de orçamento não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Cliente bdCliente = unit.Cliente.FindById(bdSolicitacao.Pessoa_Id);
+                if (bdCliente == null)
+                {
+                    ViewBag.Retorno = "Cliente não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Endereco bdEndereco = unit.Endereco.FindById(bdSolicitacao.Endereco_Id);
+                if (bdEndereco == null)
+                {
+                    ViewBag.Retorno = "Endereço não encontrado.";
+                    return RedirectToAction("CadastroSolicitacao", bdCliente.Id);
+                }
+
+                
+                OrcamentoViewModel orcamentos = new OrcamentoViewModel()
+                {
+                    IdSolicitacao = bdSolicitacao.Id,
+                    Novo = true
+                };
+
+                Orcamento bdOrcamento = unit.Orcamento.ConsultaUltimoEnviado(bdSolicitacao.Id);
+                if (bdOrcamento != null)
+                {
+                    orcamentos.ValorTotal = bdOrcamento.Valor_Total;
+                    orcamentos.TempoEstimado = bdOrcamento.Tempo_Estimado;
+                    orcamentos.Garantia = bdOrcamento.Garantia;
+                    orcamentos.FormaPagamento = bdOrcamento.Forma_Pagamento;
+                    orcamentos.Observacao = bdOrcamento.Observacao;
+                }
+                
+                return View("DetalheOrcamento", orcamentos);
+            }
+            finally
+            {
+                if (unit != null)
+                    unit.Dispose();
+
+                unit = null;
+            }
+        }
     }
 }
