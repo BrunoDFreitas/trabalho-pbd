@@ -27,4 +27,8 @@ insert into
 solicitacao_orcamento (pessoa_id, endereco_id, data_hora, status)
 values (1, (select id from endereco where pessoa_id = 1 limit 1), '2017-07-28 13:00:00', 'P');
 
+insert into
+orcamento (solicitacao_orcamento_id, data_hora_emissao, valor_total, tempo_estimado, status, garantia, observacao, forma_pagamento)
+values ((select id from solicitacao_orcamento where pessoa_id = 1 limit 1), '2017-07-29 09:00:00', 5000, '15 dias', 'P', 'S', null, '50% de entrada. 50% após término.');
+
 

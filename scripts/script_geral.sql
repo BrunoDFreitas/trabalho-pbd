@@ -73,11 +73,11 @@ PRIMARY KEY(orcamento_id,documento_id)
 );
 
 CREATE TABLE orcamento (
-id INT  PRIMARY KEY,
+id INT AUTO_INCREMENT PRIMARY KEY,
 solicitacao_orcamento_id INT  NOT NULL,
 data_hora_emissao DATETIME NOT NULL,
 valor_total DECIMAL(12,2) NOT NULL,
-tempo_estimando VARCHAR(30) NOT NULL,
+tempo_estimado VARCHAR(30) NOT NULL,
 garantia CHAR(1) NOT NULL,
 status CHAR(1) NOT NULL,
 forma_pagamento VARCHAR(255) NOT NULL,
