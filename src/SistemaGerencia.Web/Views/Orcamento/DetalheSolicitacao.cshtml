@@ -54,7 +54,7 @@
                         <td>@o.ValorTotal</td>
                         <td>@o.Garantia</td>
                         <td>@o.Status</td>
-                        <td></td>
+                        <td>@Html.ActionLink("Detalhe", "DetalheOrcamento", new { @idOrcamento = o.Id })</td>
                     </tr>
                 }
             }

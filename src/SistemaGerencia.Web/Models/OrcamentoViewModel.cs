@@ -36,6 +36,7 @@ namespace SistemaGerencia.Web.Models
             this.Garantia = o.Garantia;
             this.Status = o.Status;
             this.Observacao = o.Observacao;
+            Novo = false;
         }
     }
 }

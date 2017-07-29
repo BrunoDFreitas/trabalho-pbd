@@ -241,10 +241,7 @@ namespace SistemaGerencia.Web.Controllers
                         Observacao = o.Observacao
                     })
                     .ToList();
-
-
-                // TODO -> Adicionar listagem de serviços
-
+                                
                 SolicitacaoOrcamentoViewModel solicitacao = new SolicitacaoOrcamentoViewModel()
                 {
                     IdSolicitacao = bdSolicitacao.Id,
@@ -284,7 +281,6 @@ namespace SistemaGerencia.Web.Controllers
             }
         }
 
-        
         [HttpGet]
         public ActionResult AdicionarOrcamento(int idSolicitacao)
         {
@@ -314,8 +310,8 @@ namespace SistemaGerencia.Web.Controllers
                     return RedirectToAction("CadastroSolicitacao", bdCliente.Id);
                 }
 
-                
-                OrcamentoViewModel orcamentos = new OrcamentoViewModel()
+
+                OrcamentoViewModel orcamento = new OrcamentoViewModel()
                 {
                     IdSolicitacao = bdSolicitacao.Id,
                     Novo = true
@@ -324,14 +320,138 @@ namespace SistemaGerencia.Web.Controllers
                 Orcamento bdOrcamento = unit.Orcamento.ConsultaUltimoEnviado(bdSolicitacao.Id);
                 if (bdOrcamento != null)
                 {
-                    orcamentos.ValorTotal = bdOrcamento.Valor_Total;
-                    orcamentos.TempoEstimado = bdOrcamento.Tempo_Estimado;
-                    orcamentos.Garantia = bdOrcamento.Garantia;
-                    orcamentos.FormaPagamento = bdOrcamento.Forma_Pagamento;
-                    orcamentos.Observacao = bdOrcamento.Observacao;
+                    orcamento.ValorTotal = bdOrcamento.Valor_Total;
+                    orcamento.TempoEstimado = bdOrcamento.Tempo_Estimado;
+                    orcamento.Garantia = bdOrcamento.Garantia;
+                    orcamento.FormaPagamento = bdOrcamento.Forma_Pagamento;
+                    orcamento.Observacao = bdOrcamento.Observacao;
                 }
+
+                // TODO -> Adicionar listagem de serviços
+
+                return View("DetalheOrcamento", orcamento);
+            }
+            finally
+            {
+                if (unit != null)
+                    unit.Dispose();
+
+                unit = null;
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult DetalheOrcamento(int idOrcamento)
+        {
+            UnitOfWork unit = null;
+            try
+            {
+                unit = new UnitOfWork();
+
+                Orcamento bdOrcamento = unit.Orcamento.FindById(idOrcamento);
+                if (bdOrcamento == null)
+                {
+                    ViewBag.Retorno = "Orçamento não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                SolicitacaoOrcamento bdSolicitacao = unit.SolicitacaoOrcamento.FindById(bdOrcamento.Solicitacao_Orcamento_Id);
+                if (bdSolicitacao == null)
+                {
+                    ViewBag.Retorno = "Solicitação de orçamento não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Cliente bdCliente = unit.Cliente.FindById(bdSolicitacao.Pessoa_Id);
+                if (bdCliente == null)
+                {
+                    ViewBag.Retorno = "Cliente não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Endereco bdEndereco = unit.Endereco.FindById(bdSolicitacao.Endereco_Id);
+                if (bdEndereco == null)
+                {
+                    ViewBag.Retorno = "Endereço não encontrado.";
+                    return RedirectToAction("CadastroSolicitacao", bdCliente.Id);
+                }
+
+                OrcamentoViewModel orcamento = new OrcamentoViewModel(bdOrcamento);
                 
-                return View("DetalheOrcamento", orcamentos);
+
+                // TODO -> Adicionar listagem de serviços
+
+                return View("DetalheOrcamento", orcamento);
+            }
+            finally
+            {
+                if (unit != null)
+                    unit.Dispose();
+
+                unit = null;
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult GravarOrcamento(OrcamentoViewModel orcamento)
+        {
+            UnitOfWork unit = null;
+            try
+            {
+                unit = new UnitOfWork();
+
+                SolicitacaoOrcamento bdSolicitacao = unit.SolicitacaoOrcamento.FindById(orcamento.IdSolicitacao);
+                if (bdSolicitacao == null)
+                {
+                    ViewBag.Retorno = "Solicitação de orçamento não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Cliente bdCliente = unit.Cliente.FindById(bdSolicitacao.Pessoa_Id);
+                if (bdCliente == null)
+                {
+                    ViewBag.Retorno = "Cliente não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Endereco bdEndereco = unit.Endereco.FindById(bdSolicitacao.Endereco_Id);
+                if (bdEndereco == null)
+                {
+                    ViewBag.Retorno = "Endereço não encontrado.";
+                    return RedirectToAction("CadastroSolicitacao", bdCliente.Id);
+                }
+
+
+                Orcamento bdOrcamento = unit.Orcamento.FindById(orcamento.Id);
+                
+                if(bdOrcamento == null)
+                {
+                    bdOrcamento = new Orcamento()
+                    {
+                        Solicitacao_Orcamento_Id = orcamento.IdSolicitacao,
+                        Data_Hora_Emissao = DateTime.Now,
+                        Valor_Total = orcamento.ValorTotal,
+                        Tempo_Estimado = orcamento.TempoEstimado,
+                        Status = "P",
+                        Garantia = orcamento.Garantia,
+                        Observacao = orcamento.Observacao,
+                        Forma_Pagamento = orcamento.FormaPagamento
+                    };
+
+                    unit.Orcamento.Insert(bdOrcamento);
+                }
+                else
+                {
+                    bdOrcamento.Status = orcamento.Status;
+                    unit.Orcamento.Update(bdOrcamento);
+                }
+
+                unit.Save();
+                
+
+                return RedirectToAction("DetalheOrcamento", new { @idOrcamento = bdOrcamento.Id } );
             }
             finally
             {
