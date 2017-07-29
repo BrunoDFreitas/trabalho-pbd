@@ -23,6 +23,8 @@ insert into
 pessoa (cpf_cnpj, nome, fisico_juridico, tipo_pessoa, ramo, tipo_prestador_serv, tipo_colaborador, setor, pro_labore, data_contratacao, agencia, conta, banco, remuneracao)
 values ('99988877788', 'Sócio 1', 'F', 'P', null, 'C', 'S', null, 5000.00, null, null, null, null, null);
 
-
+insert into
+solicitacao_orcamento (pessoa_id, endereco_id, data_hora, status)
+values (1, (select id from endereco where pessoa_id = 1 limit 1), '2017-07-28 13:00:00', 'P');
 
 
