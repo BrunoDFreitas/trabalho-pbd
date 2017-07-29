@@ -25,6 +25,10 @@ namespace SistemaGerencia.BaseModel
             unit.Dispose();
 
             unit = new UnitOfWork();
+            List<Cliente> clientesAll = unit.Cliente.All().ToList();
+            unit.Dispose();
+
+            unit = new UnitOfWork();
             List<Fornecedor> fornecedores = unit.Fornecedor.ConsultaTodosFornecedores().ToList();
             unit.Dispose();
 
@@ -49,7 +53,11 @@ namespace SistemaGerencia.BaseModel
             unit.Dispose();
 
             unit = new UnitOfWork();
-            List<SolicitacaoOrcamento> solicitacoesOrcamento = unit.SolicitacaoOrcamento.ConsultaPorIdPessoa(1).ToList();
+            List<SolicitacaoOrcamento> solicitacoesOrcamento = unit.SolicitacaoOrcamento.All().ToList();
+            unit.Dispose();
+
+            unit = new UnitOfWork();
+            List<Orcamento> orcamentos = unit.Orcamento.All().ToList();
             unit.Dispose();
 
             return 0;

@@ -84,6 +84,6 @@ namespace SistemaGerencia.BaseModel.Context
         public virtual DbSet<Socio> Socio { get; set; }
         public virtual DbSet<Funcionario> Funcionario { get; set; }
         public virtual DbSet<SolicitacaoOrcamento> SolicitacaoOrcamento { get; set; }
-
+        public virtual DbSet<Orcamento> Orcamento { get; set; }
     }
 }

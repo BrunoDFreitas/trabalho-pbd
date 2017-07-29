@@ -66,10 +66,12 @@
     <Compile Include="ConcreteRepository\EnderecoRepository.cs" />
     <Compile Include="ConcreteRepository\ClienteRepository.cs" />
     <Compile Include="ConcreteRepository\PessoaRepository.cs" />
+    <Compile Include="ConcreteRepository\OrcamentoRespository.cs" />
     <Compile Include="ConcreteRepository\SolicitacaoOrcamentoRespository.cs" />
     <Compile Include="Context\MySQLContext.cs" />
     <Compile Include="Model\Colaborador.cs" />
     <Compile Include="Model\Funcionario.cs" />
+    <Compile Include="Model\Orcamento.cs" />
     <Compile Include="Model\Socio.cs" />
     <Compile Include="Model\ServidorTerceirizado.cs" />
     <Compile Include="Model\PrestadorServico.cs" />

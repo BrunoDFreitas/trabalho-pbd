@@ -182,5 +182,19 @@ namespace SistemaGerencia.BaseModel.Unit
                 return solicitacaoOrcamentoRepository;
             }
         }
+
+        
+        private OrcamentoRespository orcamentoRespository;
+        public OrcamentoRespository Orcamento
+        {
+            get
+            {
+                if (orcamentoRespository == null)
+                {
+                    orcamentoRespository = new OrcamentoRespository(this);
+                }
+                return orcamentoRespository;
+            }
+        }
     }
 }
