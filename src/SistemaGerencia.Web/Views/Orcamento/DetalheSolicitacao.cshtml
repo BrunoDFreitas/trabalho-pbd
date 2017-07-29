@@ -1,7 +1,64 @@
-﻿
+﻿@model SistemaGerencia.Web.Models.SolicitacaoOrcamentoViewModel
+
 @{
     ViewBag.Title = "DetalheSolicitacao";
 }
 
-<h2>DetalheSolicitacao</h2>
+<div class="container">
+    <h2>Detalhes da Solicitação</h2>
+
+    <div class="row">
+        <div class="col-md-2">
+            <label>Descrição</label>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("descricao", Model.DescricaoSolicitacao, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Data/Hora da Solicitação</label>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("data", Model.DataHoraSolicitacao.ToString("dd/MM/yyyy - hh:mm:ss"), new { @class = "form-control datepicker", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <h3>Local</h3>
+    @Html.Partial("_DadosCadastroEndereco", Model.Endereco)
+
+
+    <h3>Orçamentos Emitidos</h3>
+    <p>@Html.ActionLink("Novo Orçamento", "AdicionarOrcamento", new { @idSolicitacao = Model.IdSolicitacao }, new { @class = "btn btn-primary" }) </p>
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Data/Hora Emissão</th>
+                <th>Tempo Estimado</th>
+                <th>Valor Total</th>
+                <th>Garantia</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Orcamentos.Count > 0)
+            {
+                foreach (var o in Model.Orcamentos)
+                {
+                    <tr>
+                        <td>@o.DataHoraEmissao</td>
+                        <td>@o.TempoEstimado</td>
+                        <td>@o.ValorTotal</td>
+                        <td>@o.Garantia</td>
+                        <td>@o.Status</td>
+                        <td></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
 

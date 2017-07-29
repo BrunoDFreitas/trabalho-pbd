@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaGerencia.BaseModel.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,5 +17,25 @@ namespace SistemaGerencia.Web.Models
         public string Numero { get; set; }
         public string Complemento { get; set; }
         public string Descricao { get; set; }
+        public bool Editar { get; set; }
+
+        public EnderecoViewModel()
+        {
+            Editar = true;
+        }
+
+        public EnderecoViewModel(Endereco e)
+        {
+            this.Id = e.Id;
+            this.IdPessoa = e.Pessoa_Id;
+            this.Descricao = e.Descricao;
+            this.UF = e.UF;
+            this.Cidade = e.Cidade;
+            this.Bairro = e.Bairro;
+            this.Rua = e.Rua;
+            this.Numero = e.Numero;
+            this.Complemento = e.Complemento;
+            this.Editar = true;
+        }
     }
 }

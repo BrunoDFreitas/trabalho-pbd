@@ -46,14 +46,24 @@ namespace SistemaGerencia.Web.Controllers
                     , e => e.Id
                     , (s, e) => new SolicitacaoOrcamentoViewModel()
                     {
-                        Id = s.Id,
+                        IdSolicitacao = s.Id,
                         IdPessoa = s.Pessoa_Id,
                         IdEndereco = s.Endereco_Id,
-                        DataHora = s.Data_Hora,
-                        Descricao = s.Descricao,
+                        DataHoraSolicitacao = s.Data_Hora,
+                        DescricaoSolicitacao = s.Descricao,
                         Status = s.Status,
-                        DescricaoEndereco = e.Descricao,
-                        Endereco = e.UF + ", " + e.Cidade + ", " + e.Bairro + ", " + e.Rua + ", " + e.Numero
+                        Endereco = new EnderecoViewModel()
+                        {
+                            Id = e.Id,
+                            Descricao = e.Descricao,
+                            UF = e.UF,
+                            Cidade = e.Cidade,
+                            Bairro = e.Bairro,
+                            Rua = e.Rua,
+                            Numero = e.Numero,
+                            Complemento = e.Complemento,
+                            Editar = false
+                        }
                     }).ToList();
 
                 return View("SolicitacoesCliente", solicitacoes);
@@ -175,7 +185,95 @@ namespace SistemaGerencia.Web.Controllers
                 unit.SolicitacaoOrcamento.Insert(bdSolicitacao);
                 unit.Save();
 
-                return RedirectToAction("SolicitacoesCliente", new { @id = bdCliente.Id });
+                return RedirectToAction("DetalheSolicitacao", new { @id = bdSolicitacao.Id });
+            }
+            finally
+            {
+                if (unit != null)
+                    unit.Dispose();
+
+                unit = null;
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult DetalheSolicitacao(int id)
+        {
+            UnitOfWork unit = null;
+            try
+            {
+                unit = new UnitOfWork();
+
+                SolicitacaoOrcamento bdSolicitacao = unit.SolicitacaoOrcamento.FindById(id);
+                if (bdSolicitacao == null)
+                {
+                    ViewBag.Retorno = "Solicitação de orçamento não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Cliente bdCliente = unit.Cliente.FindById(bdSolicitacao.Pessoa_Id);
+                if (bdCliente == null)
+                {
+                    ViewBag.Retorno = "Cliente não encontrado.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                Endereco bdEndereco = unit.Endereco.FindById(bdSolicitacao.Endereco_Id);
+                if (bdEndereco == null)
+                {
+                    ViewBag.Retorno = "Endereço não encontrado.";
+                    return RedirectToAction("CadastroSolicitacao", bdCliente.Id);
+                }
+
+                List<OrcamentoViewModel> orcamentos = unit.Orcamento.ConsultaPorIdSolicitacao(bdSolicitacao.Id)
+                    .OrderByDescending(o => o.Data_Hora_Emissao)
+                    .Select(o => new OrcamentoViewModel()
+                    {
+                        Id = o.Id,
+                        IdSolicitacao = o.Solicitacao_Orcamento_Id,
+                        DataHoraEmissao = o.Data_Hora_Emissao,
+                        TempoEstimado = o.Tempo_Estimado,
+                        ValorTotal = o.Valor_Total,
+                        FormaPagamento = o.Forma_Pagamento,
+                        Garantia = o.Garantia,
+                        Status = o.Status,
+                        Observacao = o.Observacao
+                    })
+                    .ToList();
+
+
+                // TODO -> Adicionar listagem de serviços
+
+                SolicitacaoOrcamentoViewModel solicitacao = new SolicitacaoOrcamentoViewModel()
+                {
+                    IdSolicitacao = bdSolicitacao.Id,
+                    
+
+                    IdPessoa = bdCliente.Id,
+                    NomeCliente = bdCliente.Nome,
+
+                    DataHoraSolicitacao = bdSolicitacao.Data_Hora,
+                    DescricaoSolicitacao = bdSolicitacao.Descricao,
+
+                    Endereco = new EnderecoViewModel()
+                    {
+                        Id = bdEndereco.Id,
+                        IdPessoa = bdEndereco.Pessoa_Id,
+                        Descricao = bdEndereco.Descricao,
+                        UF = bdEndereco.UF,
+                        Cidade = bdEndereco.Cidade,
+                        Bairro = bdEndereco.Bairro,
+                        Rua = bdEndereco.Rua,
+                        Numero = bdEndereco.Numero,
+                        Complemento = bdEndereco.Complemento,
+                        Editar = false
+                    },
+
+                    Orcamentos = orcamentos
+                };
+
+                return View("DetalheSolicitacao", solicitacao);
             }
             finally
             {

@@ -1,6 +1,17 @@
 ﻿@model SistemaGerencia.Web.Models.EnderecoViewModel
 <p>@ViewBag.Erro</p>
 
+@{
+    object htmlClass;
+    if(Model.Editar)
+    {
+        htmlClass = new { @class = "form-control" };
+    }
+    else
+    {
+        htmlClass = new { @class = "form-control", @readonly = "readonly" };
+    }
+
 <form action="/Cliente/GravarEndereco" method="post">
     <input type="text" hidden value="@Model.Id" id="idEndereco" name="idEndereco" />
     <input type="text" hidden value="@Model.IdPessoa" id="idPessoa" name="idPessoa" />
@@ -9,7 +20,7 @@
             <label>Descrição</label>
         </div>
         <div class="col-md-3">
-            @Html.TextBox("descricao", Model.Descricao, new { @class = "form-control" })
+            @Html.TextBox("descricao", Model.Descricao, htmlClass)
         </div>
     </div>
     <div class="row">
@@ -17,13 +28,13 @@
             <label>UF</label>
         </div>
         <div class="col-md-3">
-            @Html.TextBox("uf", Model.UF, new { @class = "form-control" })
+            @Html.TextBox("uf", Model.UF, htmlClass )
         </div>
         <div class="col-md-2">
             <label>Cidade</label>
         </div>
         <div class="col-md-3">
-            @Html.TextBox("cidade", Model.Cidade, new { @class = "form-control" })
+            @Html.TextBox("cidade", Model.Cidade, htmlClass )
         </div>
     </div>
     <div class="row">
@@ -31,13 +42,13 @@
             <label>Bairro</label>
         </div>
         <div class="col-md-3">
-            @Html.TextBox("bairro", Model.Bairro, new { @class = "form-control" })
+            @Html.TextBox("bairro", Model.Bairro, htmlClass )
         </div>
         <div class="col-md-2">
             <label>Rua</label>
         </div>
         <div class="col-md-3">
-            @Html.TextBox("rua", Model.Rua, new { @class = "form-control" })
+            @Html.TextBox("rua", Model.Rua, htmlClass )
         </div>
     </div>
     <div class="row">
@@ -45,19 +56,23 @@
             <label>Número</label>
         </div>
         <div class="col-md-3">
-            @Html.TextBox("numero", Model.Numero, new { @class = "form-control" })
+            @Html.TextBox("numero", Model.Numero, htmlClass )
         </div>
         <div class="col-md-2">
             <label>Complemento</label>
         </div>
         <div class="col-md-3">
-            @Html.TextBox("complemento", Model.Complemento, new { @class = "form-control" })
+            @Html.TextBox("complemento", Model.Complemento, htmlClass )
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-2">
-            <input type="submit" class="btn btn-primary" value="Adicionar" />
+    @if (Model.Editar)
+    {
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary" value="Adicionar" />
+            </div>
         </div>
-    </div>
+    }
 </form>
 
+}

@@ -162,7 +162,9 @@
     <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\EnderecoViewModel.cs" />
     <Compile Include="Models\GravarSolicitacaoViewModel.cs" />
+    <Compile Include="Models\ListagemOrcamentoViewModel.cs" />
     <Compile Include="Models\ListagemSolicitacoesOrcamentoViewModel.cs" />
+    <Compile Include="Models\OrcamentoViewModel.cs" />
     <Compile Include="Models\ResumoEnderecoViewModel.cs" />
     <Compile Include="Models\SolicitacaoOrcamentoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
