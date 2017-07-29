@@ -48,6 +48,10 @@ namespace SistemaGerencia.BaseModel
             List<Funcionario> funcionarios = unit.Funcionario.ConsultaTodosFuncionarios().ToList();
             unit.Dispose();
 
+            unit = new UnitOfWork();
+            List<SolicitacaoOrcamento> solicitacoesOrcamento = unit.SolicitacaoOrcamento.ConsultaPorIdPessoa(1).ToList();
+            unit.Dispose();
+
             return 0;
         }
     }

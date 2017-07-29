@@ -168,5 +168,19 @@ namespace SistemaGerencia.BaseModel.Unit
                 return funcionarioRepository;
             }
         }
+
+        
+        private SolicitacaoOrcamentoRepository solicitacaoOrcamentoRepository;
+        public SolicitacaoOrcamentoRepository SolicitacaoOrcamento
+        {
+            get
+            {
+                if (solicitacaoOrcamentoRepository == null)
+                {
+                    solicitacaoOrcamentoRepository = new SolicitacaoOrcamentoRepository(this);
+                }
+                return solicitacaoOrcamentoRepository;
+            }
+        }
     }
 }
