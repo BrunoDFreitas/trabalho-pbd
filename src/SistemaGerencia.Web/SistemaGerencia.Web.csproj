@@ -154,11 +154,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrcamentoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CadastroSolicitacaoOrcamentoViewModel.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\EnderecoViewModel.cs" />
+    <Compile Include="Models\GravarSolicitacaoViewModel.cs" />
+    <Compile Include="Models\ListagemSolicitacoesOrcamentoViewModel.cs" />
+    <Compile Include="Models\ResumoEnderecoViewModel.cs" />
+    <Compile Include="Models\SolicitacaoOrcamentoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +180,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -203,6 +210,8 @@
     <Content Include="Views\Shared\_DadosCadastroCliente.cshtml" />
     <Content Include="Views\Shared\_ListaEnderecoCliente.cshtml" />
     <Content Include="Views\Shared\_DadosCadastroEndereco.cshtml" />
+    <Content Include="Views\Orcamento\SolicitacoesCliente.cshtml" />
+    <Content Include="Views\Orcamento\CadastroSolicitacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

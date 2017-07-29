@@ -10,7 +10,7 @@
     
     <p>@ViewBag.Erro</p>
 
-    <p> <a class="btn btn-default" href="/Cliente/CadastroCliente">Adicionar</a></p>
+    <p>@Html.ActionLink("Adicionar", "CadastroCliente", "Cliente", null, new { @class = "btn btn-primary" })</p>
 
     <table id="tableClientes" class="table table-bordered table-striped">
         <thead>
@@ -18,7 +18,8 @@
                 <th>CPF/CNPJ</th>
                 <th>Nome</th>
                 <th>Ramo</th>
-                <th></th>
+                <th>Cadastro do Cliente</th>
+                <th>Orçamentos</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +31,8 @@
                         <td>@c.CPFCNPJ</td>
                         <td>@c.Nome</td>
                         <td>@c.Ramo</td>
-                        <td>@Html.ActionLink("Detalhes", "CadastroCliente", "Cliente", new { id = c.Id }, null)</td>
+                        <td>@Html.ActionLink("Editar", "CadastroCliente", "Cliente", new { id = c.Id }, null)</td>
+                        <td>@Html.ActionLink("Consultar", "SolicitacoesCliente", "Orcamento", new { id = c.Id }, null)</td>
                     </tr>
                 }
             }

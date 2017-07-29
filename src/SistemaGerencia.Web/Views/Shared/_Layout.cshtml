@@ -28,7 +28,11 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class=" body-content">
+        <div class="alert-info">
+            <h3>@ViewBag.Retorno</h3>
+        </div>
+
         @RenderBody()
         <hr />
         <footer>
@@ -38,6 +42,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/site")
     @RenderSection("scripts", required: false)
 </body>
 </html>

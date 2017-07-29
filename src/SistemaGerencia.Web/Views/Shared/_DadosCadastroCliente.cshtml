@@ -6,31 +6,38 @@
         <div class="col-md-2">
             <label>CPF/CNPJ</label>
         </div>
-        <div class="col-md-2">
-            @Html.TextBox("cpfcnpj", Model.CPFCNPJ, (Model.Id != 0 ? new { @readonly = "readonly" } : null))
+        <div class="col-md-3">
+            @if (Model.Id != 0)
+            {
+                @Html.TextBox("cpfcnpj", Model.CPFCNPJ, new { @class = "form-control", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBox("cpfcnpj", Model.CPFCNPJ, new { @class = "form-control" })
+            }
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
             <label>Nome</label>
         </div>
-        <div class="col-md-2">
-            @Html.TextBox("nome", Model.Nome)
+        <div class="col-md-3">
+            @Html.TextBox("nome", Model.Nome, new { @class = "form-control" })
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
             <label>Ramo</label>
         </div>
-        <div class="col-md-2">
-            @Html.TextBox("ramo", Model.Ramo)
+        <div class="col-md-3">
+            @Html.TextBox("ramo", Model.Ramo, new { @class = "form-control" })
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-1">
             <input type="submit" class="btn btn-primary" value="@(Model.Id != 0 ? "Alterar" : "Gravar")" />
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             @Html.ActionLink("Voltar", "Index", "Cliente", new { @class = "btn btn-default"})
         </div>
     </div>
