@@ -19,10 +19,60 @@
                 @Html.ActionLink("Voltar", "DetalheSolicitacao", new { @id = Model.IdSolicitacao }, new { @class = "btn btn-default" })
             </div>
         </div>
+
+        <h2>Serviços</h2>
+
+        @if(Model.Novo)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Descrição</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBox("novadescricao", "", new { @class = "form-control"})
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <p><a href="#" id="adicionarservico" name="adicionarservico" class="btn btn-primary">Adicionar Serviço</a></p>
+                </div>
+            </div>
+
+        }
+
+        <table id="tableServicos" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Descricao</th>
+                    @if (Model.Novo)
+                    {
+                        <th></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Servicos != null && Model.Servicos.Count > 0)
+            {
+                int count = 0;
+                foreach (var c in Model.Servicos)
+                {
+                        <tr id="@("linha" + @count)">
+                            <td >
+                                <input type="text" hidden id="Servicos[@count].Descricao" name="Servicos[@count].Descricao" value="@c.Descricao" />
+                                @c.Descricao
+                            </td>
+                            @if (Model.Novo)
+                            {
+                                <td><a href="#" idLinha="@("linha" + @count)" class="btnRemover" />Remover</td>
+                            }
+                        </tr>
+
+                        count++;
+                    }
+                }
+            </tbody>
+        </table>
     </form>
-
-
-    <h2>Serviços</h2>
-    
 </div>
 

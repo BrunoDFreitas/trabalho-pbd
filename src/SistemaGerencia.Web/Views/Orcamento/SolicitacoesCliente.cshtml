@@ -38,7 +38,7 @@
                     <tr>
                         <td>@s.DescricaoSolicitacao</td>
                         <td>@s.DataHoraSolicitacao</td>
-                        <td>@s.Status</td>
+                        <td>@SistemaGerencia.Web.Models.Constantes.StatusSolicitacoesOrcamento[s.Status]</td>
                         <td>@s.Endereco.Descricao</td>
                         <td>@s.Endereco.UF, @s.Endereco.Cidade, @s.Endereco.Bairro, @s.Endereco.Rua, @s.Endereco.Numero</td>
                         <td>@Html.ActionLink("Detalhes", "DetalheSolicitacao", "Orcamento", new { id = s.IdSolicitacao }, null)</td>

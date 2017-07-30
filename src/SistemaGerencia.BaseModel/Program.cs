@@ -60,6 +60,11 @@ namespace SistemaGerencia.BaseModel
             List<Orcamento> orcamentos = unit.Orcamento.All().ToList();
             unit.Dispose();
 
+            unit = new UnitOfWork();
+           List<Servico> servicos = unit.Servico.All().ToList();
+            unit.Dispose();
+
+
             return 0;
         }
     }

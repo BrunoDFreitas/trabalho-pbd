@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConcreteRepository\ServicoRespository.cs" />
     <Compile Include="ConcreteRepository\SocioRepository.cs" />
     <Compile Include="ConcreteRepository\FuncionarioRepository.cs" />
     <Compile Include="ConcreteRepository\ServidorTerceirizadoRepository .cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Context\MySQLContext.cs" />
     <Compile Include="Model\Colaborador.cs" />
     <Compile Include="Model\Funcionario.cs" />
+    <Compile Include="Model\Servico.cs" />
     <Compile Include="Model\Orcamento.cs" />
     <Compile Include="Model\Socio.cs" />
     <Compile Include="Model\ServidorTerceirizado.cs" />

@@ -196,5 +196,19 @@ namespace SistemaGerencia.BaseModel.Unit
                 return orcamentoRespository;
             }
         }
+
+        
+        private ServicoRespository servicoRespository;
+        public ServicoRespository Servico
+        {
+            get
+            {
+                if (servicoRespository == null)
+                {
+                    servicoRespository = new ServicoRespository(this);
+                }
+                return servicoRespository;
+            }
+        }
     }
 }

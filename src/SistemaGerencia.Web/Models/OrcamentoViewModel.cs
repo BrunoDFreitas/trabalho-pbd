@@ -19,6 +19,8 @@ namespace SistemaGerencia.Web.Models
         public string Observacao { get; set; }
         public bool Novo { get; set; }
 
+        public List<ServicoViewModel> Servicos { get; set; }
+
         public OrcamentoViewModel()
         {
             Novo = false;

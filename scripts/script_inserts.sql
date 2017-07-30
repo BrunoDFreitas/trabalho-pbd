@@ -32,3 +32,6 @@ orcamento (solicitacao_orcamento_id, data_hora_emissao, valor_total, tempo_estim
 values ((select id from solicitacao_orcamento where pessoa_id = 1 limit 1), '2017-07-29 09:00:00', 5000, '15 dias', 'P', 'S', null, '50% de entrada. 50% após término.');
 
 
+insert into
+servico (orcamento_id, descricao)
+values ((select id from orcamento where id in (select id from solicitacao_orcamento where pessoa_id = 1) order by data_hora_emissao desc limit 1), "Pintura da parede");

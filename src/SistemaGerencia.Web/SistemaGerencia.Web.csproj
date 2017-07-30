@@ -167,6 +167,7 @@
     <Compile Include="Models\ListagemSolicitacoesOrcamentoViewModel.cs" />
     <Compile Include="Models\OrcamentoViewModel.cs" />
     <Compile Include="Models\ResumoEnderecoViewModel.cs" />
+    <Compile Include="Models\ServicoViewModel.cs" />
     <Compile Include="Models\SolicitacaoOrcamentoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

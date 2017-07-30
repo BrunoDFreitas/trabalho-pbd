@@ -64,7 +64,9 @@ namespace SistemaGerencia.Web.Controllers
                             Complemento = e.Complemento,
                             Editar = false
                         }
-                    }).ToList();
+                    })
+                    .OrderByDescending(s => s.DataHoraSolicitacao)
+                    .ToList();
 
                 return View("SolicitacoesCliente", solicitacoes);
             }
@@ -325,9 +327,17 @@ namespace SistemaGerencia.Web.Controllers
                     orcamento.Garantia = bdOrcamento.Garantia;
                     orcamento.FormaPagamento = bdOrcamento.Forma_Pagamento;
                     orcamento.Observacao = bdOrcamento.Observacao;
+
+                    List<ServicoViewModel> servicos = unit.Servico.ConsultaPorIdOrcamento(bdOrcamento.Id)
+                        .Select(s => new ServicoViewModel()
+                        {
+                            Descricao = s.Descricao
+                        })
+                        .ToList();
+
+                    orcamento.Servicos = servicos;
                 }
 
-                // TODO -> Adicionar listagem de serviços
 
                 return View("DetalheOrcamento", orcamento);
             }
@@ -378,9 +388,17 @@ namespace SistemaGerencia.Web.Controllers
                 }
 
                 OrcamentoViewModel orcamento = new OrcamentoViewModel(bdOrcamento);
-                
 
-                // TODO -> Adicionar listagem de serviços
+                List<ServicoViewModel> servicos = unit.Servico.ConsultaPorIdOrcamento(bdOrcamento.Id)
+                    .Select(s => new ServicoViewModel()
+                    {
+                        Id = s.Id,
+                        IdOrcamento = s.Orcamento_Id,
+                        Descricao = s.Descricao
+                    })
+                    .ToList();
+
+                orcamento.Servicos = servicos;
 
                 return View("DetalheOrcamento", orcamento);
             }
@@ -441,15 +459,29 @@ namespace SistemaGerencia.Web.Controllers
                     };
 
                     unit.Orcamento.Insert(bdOrcamento);
+                    unit.Save();
+
+                    Servico bdServico;
+                    foreach (var s in orcamento.Servicos)
+                    {
+                        bdServico = new Servico()
+                        {
+                            Descricao = s.Descricao,
+                            Orcamento_Id = bdOrcamento.Id
+                        };
+                        unit.Servico.Insert(bdServico);
+                    }
+                    unit.Save();
+
+                    ViewBag.Retorno = "Orçamento cadastrado com sucesso.";
                 }
                 else
                 {
                     bdOrcamento.Status = orcamento.Status;
                     unit.Orcamento.Update(bdOrcamento);
+                    unit.Save();
+                    ViewBag.Retorno = "Orçamento atualizado com sucesso.";
                 }
-
-                unit.Save();
-                
 
                 return RedirectToAction("DetalheOrcamento", new { @idOrcamento = bdOrcamento.Id } );
             }

@@ -20,6 +20,13 @@ namespace SistemaGerencia.Web.Models
             { "R", "Reprovado" }
         };
 
+        public static Dictionary<string, string> StatusSolicitacoesOrcamento = new Dictionary<string, string>()
+        {
+            { "P", "Pendente de Avaliação" },
+            { "C", "Cancelado" },
+            { "A", "Orçamento Aceito" }
+        };
+
         //public static List<string> Opcoes
     }
 }
